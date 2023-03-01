@@ -1,10 +1,9 @@
 package no.hvl.dat110.broker;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-
+import java.util.HashSet;
 import no.hvl.dat110.common.TODO;
 import no.hvl.dat110.common.Logger;
 import no.hvl.dat110.messagetransport.Connection;
@@ -30,6 +29,7 @@ public class Storage {
 	}
 
 	public Set<String> getTopics() {
+
 		return subscriptions.keySet();
 
 	}
@@ -53,7 +53,6 @@ public class Storage {
 	public void addClientSession(String user, Connection connection) {
 
 		// TODO: add corresponding client session to the storage
-		// See ClientSession class
 		ClientSession session = new ClientSession(user, connection);
 		clients.put(user, session);
 		
@@ -61,25 +60,19 @@ public class Storage {
 
 	public void removeClientSession(String user) {
 
-		// TODO: disconnet the client (user) 
-		// and remove client session for user from the storage
+		// TODO: remove client session for user from the storage
 		clients.remove(user);
-		
 	}
 
 	public void createTopic(String topic) {
-
 		// TODO: create topic in the storage
 		Set<String> set = new HashSet<String>();
 		subscriptions.put(topic, set);
-	
 	}
 
 	public void deleteTopic(String topic) {
-
 		// TODO: delete topic from the storage
 		subscriptions.remove(topic);
-		
 	}
 
 	public void addSubscriber(String user, String topic) {

@@ -15,33 +15,28 @@ public class TemperatureDevice {
 		// TODO - start
 
 		// create a client object and use it to
-
-		// - connect to the broker - user "sensor" as the user name
+		Client klient = new Client("Sensor", Common.BROKERHOST, Common.BROKERPORT);
+		int temp;
+		String temperatur;
+		// - connect to the broker
+		klient.connect();
 		// - publish the temperature(s)
+		for (int x = 0; x < COUNT; x++) {
+			temp = sn.read();
+			temperatur = Integer.toString(temp);
+		klient.publish(Common.TEMPTOPIC, temperatur);
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		}
 		// - disconnect from the broker
-				Client klient = new Client("Sensor", Common.BROKERHOST, Common.BROKERPORT);
-				int temp;
-				String temperatur;
-		
-				klient.connect();
-			
-				for (int x = 0; x < COUNT; x++) {
-					temp = sn.read();
-					temperatur = Integer.toString(temp);
-				klient.publish(Common.TEMPTOPIC, temperatur);
-				try {
-					Thread.sleep(1000);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-				}
-				klient.disconnect();
-
+		klient.disconnect();
 		// TODO - end
 
 		System.out.println("Temperature device stopping ... ");
-
-	
 
 	}
 }
