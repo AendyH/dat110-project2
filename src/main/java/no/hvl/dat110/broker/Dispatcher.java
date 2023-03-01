@@ -3,7 +3,6 @@ package no.hvl.dat110.broker;
 import java.util.Set;
 import java.util.Collection;
 
-import no.hvl.dat110.common.TODO;
 import no.hvl.dat110.common.Logger;
 import no.hvl.dat110.common.Stopable;
 import no.hvl.dat110.messages.*;
@@ -110,7 +109,7 @@ public class Dispatcher extends Stopable {
 
 		Logger.log("onCreateTopic:" + msg.toString());
 
-		// TODO: create the topic in the broker storage
+
 		// the topic is contained in the create topic message
 		storage.createTopic(msg.getTopic());
 
@@ -120,7 +119,6 @@ public class Dispatcher extends Stopable {
 
 		Logger.log("onDeleteTopic:" + msg.toString());
 
-		// TODO: delete the topic from the broker storage
 		// the topic is contained in the delete topic message
 		storage.deleteTopic(msg.getTopic());
 	}
@@ -129,7 +127,7 @@ public class Dispatcher extends Stopable {
 
 		Logger.log("onSubscribe:" + msg.toString());
 
-		// TODO: subscribe user to the topic
+
 		// user and topic is contained in the subscribe message
 		storage.addSubscriber(msg.getUser(), msg.getTopic());
 
@@ -139,7 +137,6 @@ public class Dispatcher extends Stopable {
 
 		Logger.log("onUnsubscribe:" + msg.toString());
 
-		// TODO: unsubscribe user to the topic
 		// user and topic is contained in the unsubscribe message
 		storage.removeSubscriber(msg.getUser(), msg.getTopic());
 	}
@@ -148,13 +145,10 @@ public class Dispatcher extends Stopable {
 
 		Logger.log("onPublish:" + msg.toString());
 
-		// TODO: publish the message to clients subscribed to the topic
-		// topic and message is contained in the subscribe message
-		// messages must be sent used the corresponding client session objects
-		Set<String> set = storage.getSubscribers(msg.getTopic());
-		for(String user:set) {
-			ClientSession session = storage.getSession(user);
-			if(session != null) session.send(msg);
+		Set<String> subscribers = storage.getSubscribers(msg.getTopic());
+		for (String s : subscribers) {
+			ClientSession session = storage.getSession(s);
+			session.send(msg);
 		}
 
 	}

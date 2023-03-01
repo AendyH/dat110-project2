@@ -3,12 +3,12 @@ package no.hvl.dat110.messages;
 import com.google.gson.*;
 
 import no.hvl.dat110.common.Logger;
-import no.hvl.dat110.messages.*;
 import no.hvl.dat110.messagetransport.Connection;
 import no.hvl.dat110.messagetransport.TransportMessage;
 
 public class MessageUtils {
 
+	@SuppressWarnings("deprecation")
 	public static Message fromJson(String msg) {
 
 		JsonParser jsonParser = new JsonParser();

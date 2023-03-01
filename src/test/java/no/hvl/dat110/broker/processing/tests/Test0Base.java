@@ -12,7 +12,6 @@ import no.hvl.dat110.broker.Storage;
 
 public abstract class Test0Base {
 
-	// TODO: many possibilities for better testing
 	protected Dispatcher dispatcher;
 	protected Broker broker;
 	protected Storage storage;

@@ -4,8 +4,6 @@ import java.util.Collection;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.HashSet;
-import no.hvl.dat110.common.TODO;
-import no.hvl.dat110.common.Logger;
 import no.hvl.dat110.messagetransport.Connection;
 
 public class Storage {
@@ -52,43 +50,37 @@ public class Storage {
 
 	public void addClientSession(String user, Connection connection) {
 
-		// TODO: add corresponding client session to the storage
-		ClientSession session = new ClientSession(user, connection);
-		clients.put(user, session);
+	
+		ClientSession clientSession = new ClientSession(user, connection);
+		clients.put(user, clientSession);
 		
 	}
 
 	public void removeClientSession(String user) {
 
-		// TODO: remove client session for user from the storage
+		ClientSession clientSession = getSession(user);
+		clientSession.disconnect();
 		clients.remove(user);
 	}
 
 	public void createTopic(String topic) {
-		// TODO: create topic in the storage
-		Set<String> set = new HashSet<String>();
-		subscriptions.put(topic, set);
+	
+		subscriptions.put(topic, ConcurrentHashMap.newKeySet());
+		
 	}
 
 	public void deleteTopic(String topic) {
-		// TODO: delete topic from the storage
+	
 		subscriptions.remove(topic);
 	}
 
 	public void addSubscriber(String user, String topic) {
 
-		// TODO: add the user as subscriber to the topic
-		Set<String> set = subscriptions.get(topic);
-		set.add(user);
-		subscriptions.put(topic, set);
-		
+		subscriptions.get(topic).add(user);
 	}
 
 	public void removeSubscriber(String user, String topic) {
 
-		// TODO: remove the user as subscriber to the topic
-		Set<String> set = subscriptions.get(topic);
-		set.remove(user);
-		subscriptions.put(topic, set);
+		subscriptions.get(topic).remove(user);
 	}
 }
